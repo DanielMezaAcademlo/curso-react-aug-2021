@@ -1,11 +1,11 @@
 import React from "react";
 
-const Menu = () => {
+const Menu = ({ handleOpenAlert }) => {
   return (
     <ul>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>Item 3</li>
+      <button onClick={handleOpenAlert}>Item 1</button>
+      <button onClick={handleOpenAlert}>Item 2</button>
+      <button onClick={handleOpenAlert}>Item 3</button>
     </ul>
   );
 };
