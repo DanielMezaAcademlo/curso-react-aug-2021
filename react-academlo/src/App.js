@@ -1,88 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 //Components
 import Header from "./componentes/Header";
 import Menu from "./componentes/Menu";
+import SingleCharacter from "./componentes/SingleCharacter";
 
 function App() {
-  //state
+  //HOOKS
   const [counter, setCounter] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  // const counter = 0
+  const [characters, setCharacters] = useState([]);
+  const [page, setPage] = useState(1);
 
-  //eventos/funciones
-  const handleCounter = text => {
-    if (text === "add1") {
-      setCounter(counter + 1);
-    } else if (text === "add10") {
-      setCounter(counter + 10);
-    } else {
-      setCounter(0);
-    }
+  useEffect(() => {
+    const handleData = async () => {
+      const response = await fetch(
+        `https://rickandmortyapi.com/api/character/?page=${page}`
+      );
+      const result = await response.json();
+      setCharacters([...characters, ...result.results]); // --->[{}, {}, {}, {}]
+    };
+    handleData();
+  }, [page]);
+
+  const handleNextPage = () => {
+    setPage(page + 1);
   };
 
-  const handleOpenAlert = () => {
-    alert("Si funciona");
-  };
-
-  const handleShowModal = () => {
-    setShowModal(!showModal);
-  };
-
-  const handleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  // const handleAddCounter = () => {
-  //   setCounter(counter + 1)
-  // }
-
-  // const handleAdd10Counter = () => {
-  //   setCounter(counter + 10)
-  // }
-
-  // const handleResetCounter = () => {
-  //   setCounter(0)
-  // }
+  //FUNCIONES
 
   return (
     <div className="App">
-      <button onClick={() => handleCounter("add1")}>Add 1</button>
-      <button onClick={() => handleCounter("add10")}>Add 10</button>
-      <button onClick={() => handleCounter("reset")}>Reset</button>
-      <button onClick={handleShowModal}>Show Modal</button>
-      <button onClick={() => setDarkMode(!darkMode)}>Dark Mode</button>
-      {/* <button onClick={() => setShowModal(!showModal)}>Show Modal</button> */}
-      {/* <button onClick={handleAddCounter}>Add 1</button>
-      <button onClick={handleAdd10Counter}>Add 10</button>
-      <button onClick={handleResetCounter}>Reset</button> */}
-
-      {/* {showModal ? (
-        <Header
-          counter={counter}
-          title="Título :D"
-          handleOpenAlert={handleOpenAlert}
-        />
-      ) : null} */}
-
-      {showModal && (
-        <Header
-          counter={counter}
-          title="Título :D"
-          handleOpenAlert={handleOpenAlert}
-          darkMode={darkMode}
-        />
+      {characters && characters.length > 0 ? (
+        characters.map(character => (
+          <SingleCharacter avatar={character.image} name={character.name} />
+        ))
+      ) : (
+        <h3>No se encontraron resultados</h3>
       )}
-
-      {/* const Header = (counter) => {
-        return (
-          counter
-        )
-      } */}
-
-      {/* <Menu handleOpenAlert={handleOpenAlert} /> */}
+      <button onClick={handleNextPage}>Ver más</button>
     </div>
   );
 }

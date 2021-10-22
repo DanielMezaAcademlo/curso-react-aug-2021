@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //Components
 import Menu from "./Menu";
@@ -7,6 +7,11 @@ import Menu from "./Menu";
 import "../styles/Header.styles.css";
 
 const Header = ({ title, counter, handleOpenAlert, darkMode }) => {
+  //HOOKS
+  useEffect(() => {
+    console.log("Hola desde Header.jsx");
+  }, []);
+
   // const { title, counter } = props;
   // console.log(darkMode);
   return (
