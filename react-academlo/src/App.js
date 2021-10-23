@@ -2,47 +2,63 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 //Components
-import Header from "./componentes/Header";
-import Menu from "./componentes/Menu";
-import SingleCharacter from "./componentes/SingleCharacter";
+import Header from "./components/Header";
+import MainCounter from "./components/MainCounter";
+import Todo from "./components/Todo";
 
-function App() {
-  //HOOKS
+const App = () => {
+  //STATE
   const [counter, setCounter] = useState(0);
-  const [showModal, setShowModal] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [characters, setCharacters] = useState([]);
-  const [page, setPage] = useState(1);
+  const [dataAPI, setDataAPI] = useState([]);
 
+  //EFFECT
   useEffect(() => {
-    const handleData = async () => {
+    const handleDataAPI = async () => {
       const response = await fetch(
-        `https://rickandmortyapi.com/api/character/?page=${page}`
+        "https://jsonplaceholder.typicode.com/todos"
       );
       const result = await response.json();
-      setCharacters([...characters, ...result.results]); // --->[{}, {}, {}, {}]
+      const todos = result.slice(0, 15);
+      setDataAPI(todos);
     };
-    handleData();
-  }, [page]);
 
-  const handleNextPage = () => {
-    setPage(page + 1);
-  };
+    handleDataAPI();
+  }, []);
 
   //FUNCIONES
+  const handleAddCounter = () => {
+    setCounter(counter + 1);
+  };
+
+  const handleTodo = id => {
+    //Completed
+    //id
+    setDataAPI(
+      dataAPI.map(todo =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+
+    // alert(id);
+  };
 
   return (
     <div className="App">
-      {characters && characters.length > 0 ? (
-        characters.map(character => (
-          <SingleCharacter avatar={character.image} name={character.name} />
-        ))
-      ) : (
-        <h3>No se encontraron resultados</h3>
-      )}
-      <button onClick={handleNextPage}>Ver más</button>
+      <Header sumar={handleAddCounter} />
+      <MainCounter counter={counter} />
+
+      {dataAPI.map(todo => {})}
+
+      {dataAPI.map(todo => (
+        <Todo
+          title={todo.title}
+          status={todo.completed}
+          handleTodo={handleTodo}
+          id={todo.id}
+        />
+      ))}
     </div>
   );
-}
+};
 
 export default App;
