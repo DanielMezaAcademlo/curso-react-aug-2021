@@ -1,7 +1,6 @@
-.container {
-  height: 80vh;
+.loader {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  padding: 2rem;
 }

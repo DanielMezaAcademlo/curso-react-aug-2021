@@ -1,62 +1,61 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 
 //Components
 import Header from "./components/Header";
-import MainCounter from "./components/MainCounter";
 import Todo from "./components/Todo";
+import Loader from "./components/Loader";
+
+//Styles
+import "./styles/App.css";
 
 const App = () => {
   //STATE
-  const [counter, setCounter] = useState(0);
-  const [dataAPI, setDataAPI] = useState([]);
+  const [todoList, setTodoList] = useState([]);
 
   //EFFECT
+
   useEffect(() => {
-    const handleDataAPI = async () => {
+    const handleTodoList = async () => {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/todos"
       );
       const result = await response.json();
-      const todos = result.slice(0, 15);
-      setDataAPI(todos);
+      const resultTodoList = result.slice(0, 20);
+      // setTimeout(() => {
+      setTodoList(resultTodoList);
+      // }, 2000);
     };
-
-    handleDataAPI();
+    handleTodoList();
   }, []);
 
   //FUNCIONES
-  const handleAddCounter = () => {
-    setCounter(counter + 1);
-  };
-
-  const handleTodo = id => {
-    //Completed
-    //id
-    setDataAPI(
-      dataAPI.map(todo =>
+  const handleCompleteTodo = id => {
+    setTodoList(
+      todoList.map(todo =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
-
-    // alert(id);
   };
 
   return (
     <div className="App">
-      <Header sumar={handleAddCounter} />
-      <MainCounter counter={counter} />
+      <Header />
 
-      {dataAPI.map(todo => {})}
-
-      {dataAPI.map(todo => (
-        <Todo
-          title={todo.title}
-          status={todo.completed}
-          handleTodo={handleTodo}
-          id={todo.id}
-        />
-      ))}
+      <div className="todo-container">
+        {todoList && todoList.length > 0 ? (
+          todoList.map(singleTodo => (
+            <Todo
+              key={singleTodo.id}
+              title={singleTodo.title}
+              status={singleTodo.completed}
+              handleCompleteTodo={handleCompleteTodo}
+              id={singleTodo.id}
+            />
+          ))
+        ) : (
+          <Loader />
+        )}
+      </div>
     </div>
   );
 };
