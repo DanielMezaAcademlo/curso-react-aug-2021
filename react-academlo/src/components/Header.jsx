@@ -6,7 +6,7 @@ import "../styles/Header.css";
 const Header = () => {
   return (
     <header>
-      <h4 className="logo">ToDo List</h4>
+      <h4 className="logo">Superheroes</h4>
     </header>
   );
 };

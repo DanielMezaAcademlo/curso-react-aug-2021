@@ -2,60 +2,67 @@ import React, { useState, useEffect } from "react";
 
 //Components
 import Header from "./components/Header";
-import Todo from "./components/Todo";
-import Loader from "./components/Loader";
+import Form from "./components/Form";
+import HeroContainer from "./components/HeroContainer";
+import Hero from "./components/Hero";
 
 //Styles
 import "./styles/App.css";
 
 const App = () => {
   //STATE
-  const [todoList, setTodoList] = useState([]);
+  const [heroName, setHeroName] = useState("");
+  const [heroData, setHeroData] = useState(null);
+  const [error, setError] = useState(null);
 
   //EFFECT
 
-  useEffect(() => {
-    const handleTodoList = async () => {
+  //FUNCIONES
+  const handleChange = ({ value }) => {
+    setHeroName(value);
+  };
+
+  const handleSearchHero = async e => {
+    e.preventDefault();
+    const token = "10220588968268520";
+    try {
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/todos"
+        `https://www.superheroapi.com/api.php/${token}/search/${heroName}`
       );
       const result = await response.json();
-      const resultTodoList = result.slice(0, 20);
-      // setTimeout(() => {
-      setTodoList(resultTodoList);
-      // }, 2000);
-    };
-    handleTodoList();
-  }, []);
 
-  //FUNCIONES
-  const handleCompleteTodo = id => {
-    setTodoList(
-      todoList.map(todo =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+      if (result.response === "success") {
+        setError(null);
+        setHeroData(result.results);
+      } else {
+        setHeroData(null);
+        setError(result.error);
+      }
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="App">
       <Header />
+      <Form
+        handleChange={handleChange}
+        handleSearchHero={handleSearchHero}
+        heroName={heroName}
+      />
 
-      <div className="todo-container">
-        {todoList && todoList.length > 0 ? (
-          todoList.map(singleTodo => (
-            <Todo
-              key={singleTodo.id}
-              title={singleTodo.title}
-              status={singleTodo.completed}
-              handleCompleteTodo={handleCompleteTodo}
-              id={singleTodo.id}
-            />
+      <HeroContainer>
+        {heroData ? (
+          heroData.map(hero => (
+            <Hero key={hero.id} name={hero.name} avatar={hero.image.url} />
           ))
-        ) : (
-          <Loader />
-        )}
-      </div>
+        ) : error ? (
+          <h4>{error}</h4>
+        ) : null}
+        <Hero />
+      </HeroContainer>
     </div>
   );
 };
