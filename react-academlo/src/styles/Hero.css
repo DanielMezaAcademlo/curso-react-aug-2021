@@ -1,0 +1,24 @@
+.heroe-card {
+  margin-bottom: 30px;
+}
+
+.details {
+  background-color: #000;
+}
+
+.details a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.more {
+  background-color: #fff;
+  color: #000;
+}
+
+.more a {
+  color: #000;
+  text-decoration: none;
+  font-size: 1rem;
+}
