@@ -1,43 +1,56 @@
 import React, { useState } from "react";
 
 //Components
-import WeatherForm from "../../Components/Home/Form/WeatherForm";
-import CityInformation from "../../Components/Home/CityInformation/CityInformation";
+import Header from "../../Components/Custom/Header/Header";
+import UserForm from "../../Components/Home/Form/UserForm";
+import GithubUser from "../../Components/Custom/GithubUser/GithubUser";
 import Loader from "../../Components/Custom/Loader/Loader";
 
 const Home = () => {
   //State
-  const [cityName, setCityName] = useState("");
-  const [cityInformation, setCityInformation] = useState(null);
+  const [userName, setUserName] = useState("");
+  const [userInformation, setUserInformation] = useState(null);
   const [loader, setLoader] = useState(false);
 
   //Funciones
-  const handleCity = ({ value }) => {
-    setCityName(value);
+  const handleUserName = ({ value }) => {
+    setUserName(value);
   };
 
-  const handleSearchWeather = async e => {
+  const handleSearchUser = async e => {
     e.preventDefault();
-    setCityInformation(null);
+    setUserInformation(null);
     setLoader(true);
-    const API = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.REACT_APP_API_KEY}`;
+    const API = `https://api.github.com/users/${userName}`;
     const response = await fetch(API);
     const result = await response.json();
-    setCityInformation(result);
+    console.log(result);
+    setUserInformation(result);
     setLoader(false);
   };
 
   return (
     <div className="">
-      <WeatherForm
-        handleCity={handleCity}
-        cityName={cityName}
-        handleSearchWeather={handleSearchWeather}
+      <Header />
+      <UserForm
+        handleUserName={handleUserName}
+        handleSearchUser={handleSearchUser}
       />
+      <div className="text-center">
+        {userInformation ? (
+          <GithubUser
+            avatar={userInformation?.avatar_url}
+            github={userInformation?.html_url}
+            github_name={userInformation?.login}
+            name={userInformation?.name}
+            public_repos={userInformation?.public_repos}
+            followers={userInformation?.followers}
+            following={userInformation?.following}
+          />
+        ) : null}
+      </div>
 
       {loader && <Loader />}
-
-      {cityInformation && <CityInformation name={cityInformation.name} />}
     </div>
   );
 };
