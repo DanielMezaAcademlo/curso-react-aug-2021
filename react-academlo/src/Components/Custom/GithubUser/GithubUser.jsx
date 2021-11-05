@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 //Styles
 import "./GithubUser.styles.css";
 
@@ -27,8 +27,10 @@ const GithubUser = props => {
           {public_repos}
         </p>
         <p>
-          <span className="text-yellow text-xl	font-bold	"> Followers: </span>{" "}
-          {followers}
+          <Link to={`/followers/${github_name}`}>
+            <span className="text-yellow text-xl	font-bold	"> Followers: </span>{" "}
+            {followers}
+          </Link>
         </p>
         <p>
           <span className="text-yellow text-xl	font-bold	"> Following: </span>{" "}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 //Components
-import Header from "../../Components/Custom/Header/Header";
 import UserForm from "../../Components/Home/Form/UserForm";
 import GithubUser from "../../Components/Custom/GithubUser/GithubUser";
 import Loader from "../../Components/Custom/Loader/Loader";
@@ -31,7 +30,6 @@ const Home = () => {
 
   return (
     <div className="">
-      <Header />
       <UserForm
         handleUserName={handleUserName}
         handleSearchUser={handleSearchUser}

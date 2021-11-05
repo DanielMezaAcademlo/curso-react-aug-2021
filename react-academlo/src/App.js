@@ -5,7 +5,10 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 //Views
 import Home from "./Pages/Home/Home";
-import WeatherInformation from "./Pages/WeatherInformation/WeatherInformation";
+import Followers from "./Pages/Followers/Followers";
+
+//Layout
+import MainLayout from "./Layouts/MainLayout";
 
 function App() {
   //JSX
@@ -13,13 +16,15 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
+        <MainLayout>
+          <Route path="/" exact>
+            <Home />
+          </Route>
 
-        <Route path="/weather/:name" exact>
-          <WeatherInformation />
-        </Route>
+          <Route path="/followers/:user" exact>
+            <Followers />
+          </Route>
+        </MainLayout>
       </Switch>
     </BrowserRouter>
   );
