@@ -1,12 +1,17 @@
 import React from "react";
 
-const Menu = () => {
+const Menu = ({ items, handleName, handleFillName }) => {
   return (
-    <ul>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>Item 3</li>
-    </ul>
+    <>
+      <input type="text" onChange={({ target }) => handleFillName(target)} />
+      <ul>
+        {items.map(item => (
+          <li>
+            <button onClick={() => handleName("Laura")}>{item}</button>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 

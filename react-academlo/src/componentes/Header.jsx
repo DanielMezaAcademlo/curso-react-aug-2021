@@ -3,11 +3,15 @@ import React from "react";
 //Components
 import Menu from "./Menu";
 
-const Header = () => {
+const Header = ({ menu, handleName, handleFillName }) => {
   return (
     <>
       <h2>Logo</h2>
-      <Menu />
+      <Menu
+        items={menu}
+        handleName={handleName}
+        handleFillName={handleFillName}
+      />
     </>
   );
 };
