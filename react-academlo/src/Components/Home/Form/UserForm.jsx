@@ -3,12 +3,12 @@ import React from "react";
 //Styles
 import "./UserForm.styles.css";
 
-const UserForm = ({ handleUserName, handleSearchUser }) => {
+const UserForm = ({ handleUserName, handleFetchData }) => {
   return (
     <form
       action=""
       className="w-1/2 m-auto mt-10 text-center"
-      onSubmit={e => handleSearchUser(e)}
+      onSubmit={e => handleFetchData(e)} //unaFuncion
     >
       <input
         type="text"

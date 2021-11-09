@@ -6,27 +6,20 @@ import UserForm from "../../Components/Home/Form/UserForm";
 import GithubUser from "../../Components/Custom/GithubUser/GithubUser";
 import Loader from "../../Components/Custom/Loader/Loader";
 
+//Hooks
+import { useFetchData } from "../../Hooks/useFetchData";
+
 const Home = () => {
   //State
   const [userName, setUserName] = useState("");
-  const [userInformation, setUserInformation] = useState(null);
-  const [loader, setLoader] = useState(false);
+  //Uso de Custom hook
+  const { data, loader, handleFetchData } = useFetchData(
+    `https://api.github.com/users/${userName}`
+  );
 
   //Funciones
   const handleUserName = ({ value }) => {
     setUserName(value);
-  };
-
-  const handleSearchUser = async e => {
-    e.preventDefault();
-    setUserInformation(null);
-    setLoader(true);
-    const API = `https://api.github.com/users/${userName}`;
-    const response = await fetch(API);
-    const result = await response.json();
-    console.log(result);
-    setUserInformation(result);
-    setLoader(false);
   };
 
   return (
@@ -34,18 +27,19 @@ const Home = () => {
       <Header />
       <UserForm
         handleUserName={handleUserName}
-        handleSearchUser={handleSearchUser}
+        userName={userName}
+        handleFetchData={handleFetchData}
       />
       <div className="text-center">
-        {userInformation ? (
+        {data ? (
           <GithubUser
-            avatar={userInformation?.avatar_url}
-            github={userInformation?.html_url}
-            github_name={userInformation?.login}
-            name={userInformation?.name}
-            public_repos={userInformation?.public_repos}
-            followers={userInformation?.followers}
-            following={userInformation?.following}
+            avatar={data?.avatar_url}
+            github={data?.html_url}
+            github_name={data?.login}
+            name={data?.name}
+            public_repos={data?.public_repos}
+            followers={data?.followers}
+            following={data?.following}
           />
         ) : null}
       </div>
