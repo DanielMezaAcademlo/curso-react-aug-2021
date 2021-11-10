@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+
+//Context
+import DarkModeContext from "../../../Context/DarkModeContext";
 
 //Styles
 import "./UserForm.styles.css";
 
 const UserForm = ({ handleUserName, handleSearchUser }) => {
+  const { darkMode } = useContext(DarkModeContext);
+
   return (
     <form
       action=""
@@ -19,7 +24,9 @@ const UserForm = ({ handleUserName, handleSearchUser }) => {
       <input
         type="submit"
         value="Search !"
-        className="p-4 w-1/3 tablet:w-1/4 bg-black hover:bg-yellow text-white hover:text-black search-input_button"
+        className={`p-4 w-1/3 tablet:w-1/4  text-white hover:text-black search-input_button ${
+          darkMode ? "bg-black hover:bg-yellow" : "bg-yellow hover:bg-black"
+        }`}
       />
     </form>
   );
