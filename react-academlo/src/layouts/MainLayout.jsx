@@ -3,10 +3,12 @@ import React from "react";
 //Components
 import Header from "../componentes/Header";
 
-const MainLayout = () => {
+const MainLayout = ({ children }) => {
   return (
     <>
       <Header />
+
+      {children}
     </>
   );
 };

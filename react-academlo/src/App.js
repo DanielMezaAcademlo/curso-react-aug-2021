@@ -8,23 +8,28 @@ import Team from "./pages/Team/Team";
 //Layouts
 import MainLayout from "./layouts/MainLayout";
 
+//Context
+import { TeamProvider } from "./context/TeamContext";
+
 function App() {
   //JSX
 
   return (
-    <MainLayout>
+    <TeamProvider>
       <BrowserRouter>
-        <Switch>
-          <Route>
-            <Home />
-          </Route>
+        <MainLayout>
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
 
-          <Route>
-            <Team />
-          </Route>
-        </Switch>
+            <Route path="/team" exact>
+              <Team />
+            </Route>
+          </Switch>
+        </MainLayout>
       </BrowserRouter>
-    </MainLayout>
+    </TeamProvider>
   );
 }
 

@@ -1,17 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
+//Router
+import { Link } from "react-router-dom";
 
+//Context
+import TeamContext from "../context/TeamContext";
 //Components
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, Badge } from "react-bootstrap";
 
 const Header = () => {
+  const { team } = useContext(TeamContext);
+  const bgColor =
+    team.length < 3
+      ? "danger"
+      : team.length >= 3 && team.length < 6
+      ? "warning"
+      : "success";
+
   return (
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Poke API</Navbar.Brand>
+          <Link to="/">
+            <Navbar.Brand>Poke API</Navbar.Brand>
+          </Link>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Team</Nav.Link>
+            <Link to="/">
+              <Nav.Link href="#home">Home</Nav.Link>
+            </Link>
+            <Link to="/team">
+              <Nav.Link href="#features">
+                Team
+                <Badge bg={bgColor} text="dark" style={{ marginLeft: 10 }}>
+                  {team.length}
+                </Badge>
+              </Nav.Link>
+            </Link>
           </Nav>
         </Container>
       </Navbar>
