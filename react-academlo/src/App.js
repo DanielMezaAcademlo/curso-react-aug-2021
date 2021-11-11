@@ -1,15 +1,30 @@
 import "./App.css";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-//Components
-import Header from "./componentes/Header";
+//Pages
+import Home from "./pages/Home/Home";
+import Team from "./pages/Team/Team";
+
+//Layouts
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
   //JSX
 
   return (
-    <div className="App">
-      <Header />
-    </div>
+    <MainLayout>
+      <BrowserRouter>
+        <Switch>
+          <Route>
+            <Home />
+          </Route>
+
+          <Route>
+            <Team />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </MainLayout>
   );
 }
 

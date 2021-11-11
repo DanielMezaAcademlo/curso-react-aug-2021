@@ -1,13 +1,20 @@
 import React from "react";
 
 //Components
-import Menu from "./Menu";
+import { Navbar, Container, Nav } from "react-bootstrap";
 
 const Header = () => {
   return (
     <>
-      <h2>Logo</h2>
-      <Menu />
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="#home">Poke API</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#features">Team</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
     </>
   );
 };
