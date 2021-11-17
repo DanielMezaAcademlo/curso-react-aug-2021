@@ -1,44 +1,49 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useContext, useEffect } from "react";
+import { Card, Button } from "react-bootstrap";
 //Components
-import Header from "../components/Header";
-import Form from "../components/Form";
-import HeroContainer from "../components/HeroContainer";
-import Hero from "../components/Hero";
-import Loader from "../components/Loader";
+import Header from "../components/custom/Header/Header";
+import SearchForm from "../components/Home/Form/SearchForm";
+//Context
+import MovieContext from "../context/MovieContext";
 
 const Home = () => {
+  //Context
+  const { handleChangeList } = useContext(MovieContext);
+
   //STATE
-  const [heroName, setHeroName] = useState("");
-  const [heroData, setHeroData] = useState(null);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(null);
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    const handleFirstMovie = async () => {
+      try {
+        const request = await fetch(
+          `https://www.omdbapi.com/?t=Avengers&apikey=763cfa63`
+        );
+        const result = await request.json();
+        setData(result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    handleFirstMovie();
+  }, []);
 
   //FUNCIONES
-  const handleChange = ({ value }) => {
-    setHeroName(value);
+
+  const handleChangeName = ({ value }) => {
+    setName(value);
   };
 
-  const handleSearchHero = async e => {
+  const handleSearchMovie = async e => {
     e.preventDefault();
-    setHeroData(null);
-    setIsLoading(true);
-    const token = "10220588968268520";
     try {
-      const response = await fetch(
-        `https://www.superheroapi.com/api.php/${token}/search/${heroName}`
+      const request = await fetch(
+        `https://www.omdbapi.com/?t=${name}&apikey=763cfa63`
       );
-      const result = await response.json();
-
-      if (result.response === "success") {
-        setError(null);
-        setHeroData(result.results);
-      } else {
-        setHeroData(null);
-        setError(result.error);
-      }
-
-      setIsLoading(false);
+      const result = await request.json();
+      setData(result);
     } catch (error) {
       console.log(error);
     }
@@ -47,28 +52,23 @@ const Home = () => {
   return (
     <div className="App">
       <Header />
-      <Form
-        handleChange={handleChange}
-        handleSearchHero={handleSearchHero}
-        heroName={heroName}
+      <SearchForm
+        handleChangeName={handleChangeName}
+        handleSearchMovie={handleSearchMovie}
       />
 
-      <HeroContainer>
-        {isLoading && <Loader />}
-
-        {heroData && heroData.length > 0 ? (
-          heroData.map(hero => (
-            <Hero
-              key={hero.id}
-              name={hero.name}
-              avatar={hero.image.url}
-              id={hero.id}
-            />
-          ))
-        ) : error ? (
-          <h4>{error}</h4>
-        ) : null}
-      </HeroContainer>
+      {data ? (
+        <Card style={{ width: "21rem", margin: "auto", marginTop: 20 }}>
+          <Card.Img variant="top" src={data?.Poster} />
+          <Card.Body>
+            <Card.Title>{data?.Title}</Card.Title>
+            <Card.Text>{data?.Plot}</Card.Text>
+            <Button variant="primary" onClick={() => handleChangeList(data)}>
+              Add
+            </Button>
+          </Card.Body>
+        </Card>
+      ) : null}
     </div>
   );
 };
