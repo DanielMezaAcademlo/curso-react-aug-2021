@@ -1,18 +1,20 @@
+import React, { useContext } from "react";
 import "./App.css";
+//Router
+import MainRouter from "./routers/MainRouter";
 
-//Components
-import Header from "./componentes/Header";
+//Context
+import { UserProvider } from "./context/UserContext";
+import { PostsProvider } from "./context/PostsContext";
 
 function App() {
-  //JSX
-
   return (
-    <div className="App">
-      <Header />
-    </div>
+    <UserProvider>
+      <PostsProvider>
+        <MainRouter />
+      </PostsProvider>
+    </UserProvider>
   );
 }
 
 export default App;
-
-//Props, state, hooks
