@@ -9,7 +9,7 @@ import StoreContext from "../../../Context/StoreContext";
 
 const Header = () => {
   const { darkMode, handleDarkMode } = useContext(DarkModeContext);
-  const { cart, total } = useContext(StoreContext);
+  const { state } = useContext(StoreContext);
 
   return (
     <header
@@ -18,13 +18,13 @@ const Header = () => {
       }`}
     >
       <h2 className="ml-10 text-2xl tablet:text-3xl	text-white">
-        <Link to="/store">Github API</Link>
+        <Link to="/store">Context API</Link>
       </h2>
 
       <Link to={"/store/cart"}>Carrito de compras</Link>
 
-      <p>Carrito de compras: {cart.length}</p>
-      <p>Total: {total}</p>
+      <p>Carrito de compras: {state.cart.length}</p>
+      <p>Total: {state.total}</p>
 
       <p className="mr-10 text-white block tablet:hidden">Menu</p>
       <button

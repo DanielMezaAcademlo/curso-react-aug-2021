@@ -1,11 +1,12 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useReducer } from "react";
 
 //Creamos el contexto
 const StoreContext = createContext();
 
-//Provider
-const StoreProvider = ({ children }) => {
-  const list = [
+//Reducer
+
+const initialState = {
+  list: [
     {
       id: 1,
       name: "Producto 1",
@@ -26,28 +27,42 @@ const StoreProvider = ({ children }) => {
       name: "Producto 4",
       price: 320
     }
-  ];
+  ],
+  cart: [],
+  total: 0
+};
 
-  const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "ADD_TO_CART":
+      // console.log(action.payload);
+      return {
+        ...state,
+        cart: [...state.cart, action.payload],
+        total: state.total + action.payload.price
+      };
+
+    case "REMOVE_FROM_CART":
+      return {
+        ...state,
+        cart: state.cart.filter(item => item.id !== action.payload.id),
+        total: state.total - action.payload.price
+      };
+
+    default:
+      return state;
+  }
+};
+
+//Provider
+const StoreProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   //Funciones
-  const handleAddToCart = item => {
-    setCart([...cart, item]);
-    setTotal(total + item.price);
-  };
-
-  const handleRemoveToCart = product => {
-    setCart(cart.filter(item => item.id !== product.id));
-    setTotal(total - product.price);
-  };
 
   const data = {
-    cart,
-    total,
-    list,
-    handleAddToCart,
-    handleRemoveToCart
+    state,
+    dispatch
   };
 
   return <StoreContext.Provider value={data}>{children}</StoreContext.Provider>;

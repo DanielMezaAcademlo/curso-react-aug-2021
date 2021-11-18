@@ -4,17 +4,21 @@ import React, { useContext } from "react";
 import StoreContext from "../../Context/StoreContext";
 
 const Store = () => {
-  const { cart, total, list, handleAddToCart } = useContext(StoreContext);
+  const { state, dispatch } = useContext(StoreContext);
 
   return (
     <div>
       <h2>Ejemplo E-commerce</h2>
 
-      {list.map(item => (
+      {state?.list?.map(item => (
         <div key={item.id} className="mt-10">
           <p>{item.name}</p>
           <p>{item.price}</p>
-          <button onClick={() => handleAddToCart(item)}>
+          <button
+            onClick={() =>
+              dispatch({ type: "ADD_TO_CART", payload: { price: item } })
+            }
+          >
             Agregar al carrito
           </button>
         </div>

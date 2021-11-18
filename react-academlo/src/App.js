@@ -4,10 +4,10 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 //Views
-import Home from "./Pages/Home/Home";
-import Followers from "./Pages/Followers/Followers";
-import Store from "./Pages/Store/Store";
-import Cart from "./Pages/Cart/Cart";
+import Home from "./pages/Home/Home";
+import Followers from "./pages/Followers/Followers";
+import Store from "./pages/Store/Store";
+import Cart from "./pages/Cart/Cart";
 
 //Layout
 import MainLayout from "./Layouts/MainLayout";
@@ -26,11 +26,7 @@ function App() {
           <Switch>
             <MainLayout>
               <Route path="/" exact>
-                <Home />
-              </Route>
-
-              <Route path="/followers/:user" exact>
-                <Followers />
+                <h2>Home</h2>
               </Route>
 
               <Route path="/store" exact>
