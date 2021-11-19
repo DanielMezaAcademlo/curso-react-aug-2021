@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { comment } from "postcss";
 
 //1. Creamos el context
 const PostsContext = createContext();
@@ -21,17 +22,14 @@ const PostsProvider = ({ children }) => {
       const finalComments = comments.slice(0, 50);
 
       finalPosts.map(post => {
-        finalComments.map(comment => {
-          if (comment.postId === post.id) {
-            setPosts(prevState => [
-              ...prevState,
-              { ...post, comments: [...comments, comment] }
-            ]);
+        setPosts(prevState => [
+          ...prevState,
+          {
+            ...post,
+            comments: finalComments.filter(item => item.postId === post.id)
           }
-        });
+        ]);
       });
-
-      // setPosts(result);
     };
     handlePosts();
   }, []);
