@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import PostsContext from "../../context/PostsContext";
+
 //Components
-import Header from "../../components/Custom/Header/Header";
 import Posts from "../../components/Home/Posts/Posts";
 
 const Home = () => {
+  const { posts } = useContext(PostsContext);
+
   return (
     <div>
-      <Header />
-      <Posts />
+      <Posts posts={posts} />
     </div>
   );
 };

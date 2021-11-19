@@ -11,25 +11,31 @@ const PostsProvider = ({ children }) => {
 
   useEffect(() => {
     const handlePosts = async () => {
-      const request = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const posts = await request.json();
-      const finalPosts = posts.slice(0, 10);
+      try {
+        const request = await fetch(
+          "https://jsonplaceholder.typicode.com/posts"
+        );
+        const posts = await request.json();
+        const finalPosts = posts.slice(0, 20);
 
-      const requestComments = await fetch(
-        "https://jsonplaceholder.typicode.com/comments"
-      );
-      const comments = await requestComments.json();
-      const finalComments = comments.slice(0, 50);
+        const requestComments = await fetch(
+          "https://jsonplaceholder.typicode.com/comments"
+        );
+        const comments = await requestComments.json();
+        const finalComments = comments.slice(0, 100);
 
-      finalPosts.map(post => {
-        setPosts(prevState => [
-          ...prevState,
-          {
-            ...post,
-            comments: finalComments.filter(item => item.postId === post.id)
-          }
-        ]);
-      });
+        finalPosts.map(post => {
+          setPosts(prevState => [
+            ...prevState,
+            {
+              ...post,
+              comments: finalComments.filter(item => item.postId === post.id)
+            }
+          ]);
+        });
+      } catch (error) {
+        console.log(error);
+      }
     };
     handlePosts();
   }, []);

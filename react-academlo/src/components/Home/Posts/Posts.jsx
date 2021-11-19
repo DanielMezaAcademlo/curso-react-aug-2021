@@ -1,15 +1,21 @@
-import React, { useContext } from "react";
-import PostsContext from "../../../context/PostsContext";
+import React from "react";
 
 //Components
 import Post from "../Post/Post";
 
-const Posts = () => {
-  const { posts } = useContext(PostsContext);
+//Styles
+import "./Posts.styles.css";
+
+const Posts = ({ posts }) => {
   return (
-    <div>
+    <div className="post-container">
       {posts?.map(post => (
-        <Post key={post.id} title={post.title} body={post.body} />
+        <Post
+          key={post.id}
+          title={post.title}
+          body={post.body}
+          comments={post.comments}
+        />
       ))}
     </div>
   );
