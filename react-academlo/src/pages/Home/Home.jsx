@@ -1,15 +1,9 @@
-import React, { useContext } from "react";
-import PostsContext from "../../context/PostsContext";
-
-//Components
-import Posts from "../../components/Home/Posts/Posts";
+import React from "react";
 
 const Home = () => {
-  const { posts } = useContext(PostsContext);
-
   return (
     <div>
-      <Posts posts={posts} />
+      <h2>Si jala</h2>
     </div>
   );
 };
