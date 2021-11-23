@@ -4,10 +4,11 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 //Views
-import Home from "./pages/Home/Home";
-import Followers from "./pages/Followers/Followers";
-import Store from "./pages/Store/Store";
-import Cart from "./pages/Cart/Cart";
+import Home from "./Pages/Home/Home";
+import Followers from "./Pages/Followers/Followers";
+import Store from "./Pages/Store/Store";
+import Cart from "./Pages/Cart/Cart";
+import Example from "./Pages/Example/Example";
 
 //Layout
 import MainLayout from "./Layouts/MainLayout";
@@ -35,6 +36,10 @@ function App() {
 
               <Route path="/store/cart" exact>
                 <Cart />
+              </Route>
+
+              <Route path="/example" exact>
+                <Example />
               </Route>
             </MainLayout>
           </Switch>

@@ -8,14 +8,17 @@ import DarkModeContext from "../../../Context/DarkModeContext";
 import StoreContext from "../../../Context/StoreContext";
 
 const Header = () => {
-  const { darkMode, handleDarkMode } = useContext(DarkModeContext);
-  const { state } = useContext(StoreContext);
+  const { state, dispatch } = useContext(DarkModeContext);
+  //const { state } = useContext(StoreContext);
+
+  const handleHeaderColor = e => {
+    console.log(e.target.value.toUpperCase());
+    dispatch({ type: e.target.value.toUpperCase() });
+  };
 
   return (
     <header
-      className={`h-16  flex justify-between items-center mi-clase  ${
-        darkMode ? "bg-black" : "bg-yellow"
-      }`}
+      className={`h-16 bg-${state.color} flex justify-between items-center mi-clase`}
     >
       <h2 className="ml-10 text-2xl tablet:text-3xl	text-white">
         <Link to="/store">Context API</Link>
@@ -23,16 +26,29 @@ const Header = () => {
 
       <Link to={"/store/cart"}>Carrito de compras</Link>
 
-      <p>Carrito de compras: {state.cart.length}</p>
-      <p>Total: {state.total}</p>
+      {/* <p>Carrito de compras: {state.cart.length}</p>
+      <p>Total: {state.total}</p> */}
 
       <p className="mr-10 text-white block tablet:hidden">Menu</p>
-      <button
+      {/* <button
         className={`mr-10 ${darkMode ? "text-white" : "text-black"}`}
         onClick={handleDarkMode}
       >
         Dark Mode: {darkMode ? "On" : "Off"}{" "}
-      </button>
+      </button> */}
+      <select
+        name=""
+        id=""
+        className="mr-10"
+        onChange={e => handleHeaderColor(e)}
+      >
+        <option value="yellow" selected>
+          Yellow
+        </option>
+        <option value="dark">Dark</option>
+        <option value="light_blue">Light Blue</option>
+        <option value="main_blue">Main Blue</option>
+      </select>
     </header>
   );
 };
