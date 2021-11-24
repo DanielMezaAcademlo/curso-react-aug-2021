@@ -1,23 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+//Actions
+import { handleDeleteProductsAction } from "../../redux/actions/shop.action";
 
 //Context
-import StoreContext from "../../Context/StoreContext";
 
 const Cart = () => {
-  const { state, dispatch } = useContext(StoreContext);
-
+  const { cart } = useSelector(store => store.shop);
+  const dispatch = useDispatch();
+  // { type: "REMOVE_FROM_CART", payload: item }
   return (
     <div>
       <h3 className="mt-10">Carrito de compras</h3>
-      {state?.cart?.map(item => (
+      {cart?.map(item => (
         <div key={item.id} className="mt-10">
           <p>{item.name}</p>
           <p>{item.price}</p>
-          <button
-            onClick={() =>
-              dispatch({ type: "REMOVE_FROM_CART", payload: item })
-            }
-          >
+          <button onClick={() => dispatch(handleDeleteProductsAction(item))}>
             Eliminar
           </button>
         </div>
