@@ -5,6 +5,8 @@ import thunk from "redux-thunk";
 import { counterReducer } from "../reducers/counter.reducer";
 import { darkmodeReducer } from "../reducers/darkmode.reducer";
 import { shopReducer } from "../reducers/shop.reducer";
+import { loginReducer } from "../reducers/login.reducer";
+
 //2. CombineReducers
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -12,7 +14,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducers = combineReducers({
   counter: counterReducer,
   darkmode: darkmodeReducer,
-  shop: shopReducer
+  shop: shopReducer,
+  session: loginReducer
 });
 
 //3. Ceación y exportación del store
