@@ -8,6 +8,7 @@ import Store from "./Pages/Store/Store";
 import Cart from "./Pages/Cart/Cart";
 import Example from "./Pages/Example/Example";
 import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
 //Layout
 import MainLayout from "./Layouts/MainLayout";
 
@@ -36,6 +37,10 @@ function App() {
 
         <Route path="/login" exact>
           <Login />
+        </Route>
+
+        <Route path="/signin" exact>
+          <Register />
         </Route>
         {/* </MainLayout> */}
       </Switch>

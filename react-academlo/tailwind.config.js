@@ -7,7 +7,9 @@ module.exports = {
       yellow: "#F0A500",
       light_blue: "#334756",
       main_blue: "#082032",
-      black: "#000000"
+      black: "#000000",
+      white_bg: "#F2F2F2",
+      pink: "#ff416c"
     },
     screens: {
       tablet: "640px",
