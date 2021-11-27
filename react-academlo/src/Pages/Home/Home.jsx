@@ -1,54 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //Components
-import UserForm from "../../Components/Home/Form/UserForm";
-import GithubUser from "../../Components/Custom/GithubUser/GithubUser";
-import Loader from "../../Components/Custom/Loader/Loader";
 
 const Home = () => {
   //State
-  const [userName, setUserName] = useState("");
-  const [userInformation, setUserInformation] = useState(null);
-  const [loader, setLoader] = useState(false);
+  const [name, setName] = useState("");
 
-  //Funciones
-  const handleUserName = ({ value }) => {
-    setUserName(value);
+  //Functions
+  const handleArtistName = e => {
+    setName(e.target.value);
   };
+  // Your API key: 563492ad6f917000010000014a76ca74704d41e9b50df0fbdb677b24
 
-  const handleSearchUser = async e => {
-    e.preventDefault();
-    setUserInformation(null);
-    setLoader(true);
-    const API = `https://api.github.com/users/${userName}`;
-    const response = await fetch(API);
-    const result = await response.json();
-    console.log(result);
-    setUserInformation(result);
-    setLoader(false);
-  };
+  useEffect(() => {
+    const handleFetchToken = async () => {
+      const request = await fetch(
+        "https://api.pexels.com/videos/search?query=nature&per_page=1",
+        {
+          headers: {
+            Authorization:
+              "563492ad6f917000010000014a76ca74704d41e9b50df0fbdb677b24"
+          }
+        }
+      );
+      const result = await request.json();
+      console.log(result);
+    };
+    handleFetchToken();
+  }, []);
 
   return (
     <div className="">
-      <UserForm
-        handleUserName={handleUserName}
-        handleSearchUser={handleSearchUser}
-      />
-      <div className="text-center">
-        {userInformation ? (
-          <GithubUser
-            avatar={userInformation?.avatar_url}
-            github={userInformation?.html_url}
-            github_name={userInformation?.login}
-            name={userInformation?.name}
-            public_repos={userInformation?.public_repos}
-            followers={userInformation?.followers}
-            following={userInformation?.following}
-          />
-        ) : null}
-      </div>
+      <form action="">
+        <input
+          type="text"
+          placeholder="Search Artist"
+          onChange={handleArtistName}
+        />
 
-      {loader && <Loader />}
+        <button type="submit">Search</button>
+      </form>
+      <video
+        src="https://player.vimeo.com/external/384761655.sd.mp4?s=383ab4dbc773cd0d5ece3af208d8f963368f67e4&profile_id=165&oauth2_token_id=57447761"
+        controls
+      ></video>
+      <img
+        src="https://images.pexels.com/photos/7289110/pexels-photo-7289110.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
+        alt=""
+      />
     </div>
   );
 };

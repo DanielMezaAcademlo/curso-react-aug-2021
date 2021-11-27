@@ -6,7 +6,7 @@ const initialState = {
 
 export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
-    case loginTypes.LOGIN_GOOGLE:
+    case loginTypes.LOGIN:
       return {
         ...state,
         user: action.payload

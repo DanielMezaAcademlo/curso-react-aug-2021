@@ -1,6 +1,9 @@
 import { firebase, googleProvider } from "../../firebase/firebase.config";
 import { loginTypes } from "../types/login.types";
 
+//Actions
+import { handleAddErrorAction, handleCleanErrorAction } from "./error.action";
+
 export const handleGoogleLoginAction = () => {
   return async dispatch => {
     try {
@@ -13,9 +16,27 @@ export const handleGoogleLoginAction = () => {
   };
 };
 
+export const handleLoginWithEmailAction = ({ emailForm, password }) => {
+  return async dispatch => {
+    try {
+      dispatch(handleCleanErrorAction());
+      const { user } = await firebase
+        .auth()
+        .signInWithEmailAndPassword(emailForm, password);
+      const { displayName, email, uid } = user;
+
+      dispatch(handleFillUserInfoAction({ displayName, email, uid }));
+    } catch (error) {
+      console.log(error);
+      dispatch(handleAddErrorAction(error.message));
+    }
+  };
+};
+
 export const handleRegisterAction = ({ userName, email, password }) => {
   return async dispatch => {
     try {
+      dispatch(handleCleanErrorAction());
       const { user } = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password);
@@ -30,14 +51,15 @@ export const handleRegisterAction = ({ userName, email, password }) => {
         })
       );
     } catch (error) {
-      console.log(error);
+      console.log(error.code);
+      dispatch(handleAddErrorAction(error.message));
     }
   };
 };
 
 const handleFillUserInfoAction = userInfo => {
   return {
-    type: loginTypes.LOGIN_GOOGLE,
+    type: loginTypes.LOGIN,
     payload: userInfo
   };
 };

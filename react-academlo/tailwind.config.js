@@ -9,7 +9,8 @@ module.exports = {
       main_blue: "#082032",
       black: "#000000",
       white_bg: "#F2F2F2",
-      pink: "#ff416c"
+      pink: "#ff416c",
+      red: "#ff416c"
     },
     screens: {
       tablet: "640px",

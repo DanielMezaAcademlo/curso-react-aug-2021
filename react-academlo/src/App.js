@@ -4,11 +4,9 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 //Views
-import Store from "./Pages/Store/Store";
-import Cart from "./Pages/Cart/Cart";
-import Example from "./Pages/Example/Example";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
+import Home from "./Pages/Home/Home";
 //Layout
 import MainLayout from "./Layouts/MainLayout";
 
@@ -20,26 +18,14 @@ function App() {
       <Switch>
         {/* <MainLayout> */}
         <Route path="/" exact>
-          <h2>Home</h2>
-        </Route>
-
-        <Route path="/store" exact>
-          <Store />
-        </Route>
-
-        <Route path="/store/cart" exact>
-          <Cart />
-        </Route>
-
-        <Route path="/example" exact>
-          <Example />
+          <Home />
         </Route>
 
         <Route path="/login" exact>
           <Login />
         </Route>
 
-        <Route path="/signin" exact>
+        <Route path="/signup" exact>
           <Register />
         </Route>
         {/* </MainLayout> */}

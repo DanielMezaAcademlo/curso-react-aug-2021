@@ -6,6 +6,7 @@ import { counterReducer } from "../reducers/counter.reducer";
 import { darkmodeReducer } from "../reducers/darkmode.reducer";
 import { shopReducer } from "../reducers/shop.reducer";
 import { loginReducer } from "../reducers/login.reducer";
+import { errorReducer } from "../reducers/error.reducer";
 
 //2. CombineReducers
 
@@ -15,7 +16,8 @@ const reducers = combineReducers({
   counter: counterReducer,
   darkmode: darkmodeReducer,
   shop: shopReducer,
-  session: loginReducer
+  session: loginReducer,
+  error: errorReducer
 });
 
 //3. Ceación y exportación del store

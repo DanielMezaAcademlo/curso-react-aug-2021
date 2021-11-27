@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Action
 import { handleRegisterAction } from "../../redux/actions/login.action";
@@ -7,6 +7,7 @@ import { handleRegisterAction } from "../../redux/actions/login.action";
 //Styles
 import "./Register.styles.css";
 const Register = () => {
+  const { message } = useSelector(store => store.error);
   const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = useState({
@@ -27,7 +28,7 @@ const Register = () => {
         onSubmit={handleRegister}
       >
         <h2 className="text-5xl font-light mb-5">Sign Up</h2>
-
+        {message && <p className="text-red text-center mb-5">{message}</p>}
         <input
           type="text"
           placeholder="Usuario"
