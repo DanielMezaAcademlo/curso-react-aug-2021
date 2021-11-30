@@ -9,6 +9,10 @@ import Register from "./Pages/Register/Register";
 import Home from "./Pages/Home/Home";
 //Layout
 import MainLayout from "./Layouts/MainLayout";
+import Header from "./Components/Custom/Header/Header";
+import Profile from "./Pages/Profile/Profile";
+import Videos from "./Pages/Videos/Videos";
+import Images from "./Pages/Images/Images";
 
 function App() {
   //JSX
@@ -18,15 +22,43 @@ function App() {
       <Switch>
         {/* <MainLayout> */}
         <Route path="/" exact>
-          <Home />
+          <>
+            <Header />
+            <Home />
+          </>
         </Route>
 
         <Route path="/login" exact>
-          <Login />
+          <>
+            <Login />
+          </>
         </Route>
 
         <Route path="/signup" exact>
-          <Register />
+          <>
+            <Register />
+          </>
+        </Route>
+
+        <Route path="/images" exact>
+          <>
+            <Header />
+            <Images />
+          </>
+        </Route>
+
+        <Route path="/videos" exact>
+          <>
+            <Header />
+            <Videos />
+          </>
+        </Route>
+
+        <Route path="/profile" exact>
+          <>
+            <Header />
+            <Profile />
+          </>
         </Route>
         {/* </MainLayout> */}
       </Switch>

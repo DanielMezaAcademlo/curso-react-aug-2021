@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+//Styles
+import "./Home.styles.css";
 //Components
 
 const Home = () => {
@@ -15,7 +17,9 @@ const Home = () => {
   useEffect(() => {
     const handleFetchToken = async () => {
       const request = await fetch(
-        "https://api.pexels.com/videos/search?query=nature&per_page=1",
+        // "https://api.pexels.com/videos/search?query=nature&per_page=1",
+        "https://api.pexels.com/v1/search?query=nature&per_page=20",
+
         {
           headers: {
             Authorization:
@@ -31,23 +35,107 @@ const Home = () => {
 
   return (
     <div className="">
-      <form action="">
-        <input
-          type="text"
-          placeholder="Search Artist"
-          onChange={handleArtistName}
-        />
-
-        <button type="submit">Search</button>
-      </form>
-      <video
-        src="https://player.vimeo.com/external/384761655.sd.mp4?s=383ab4dbc773cd0d5ece3af208d8f963368f67e4&profile_id=165&oauth2_token_id=57447761"
-        controls
-      ></video>
-      <img
-        src="https://images.pexels.com/photos/7289110/pexels-photo-7289110.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200"
-        alt=""
-      />
+      <div className="container">
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/windmill.jpg"
+            alt="A windmill"
+          />
+          <figcaption>
+            <a href="#">1</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/suspension-bridge.jpg"
+            alt="The Clifton Suspension Bridge"
+          />
+          <figcaption>
+            <a href="#">2</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/sunset.jpg"
+            alt="Sunset and boats"
+          />
+          <figcaption>
+            <a href="#">3</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/snowy.jpg"
+            alt="a river in the snow"
+          />
+          <figcaption>
+            <a href="#">4</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/bristol-balloons1.jpg"
+            alt="a single checked balloon"
+          />
+          <figcaption>
+            <a href="#">5</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/dog-balloon.jpg"
+            alt="a hot air balloon shaped like a dog"
+          />
+          <figcaption>
+            <a href="#">6</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/abq-balloons.jpg"
+            alt="View from a hot air balloon of other balloons"
+          />
+          <figcaption>
+            <a href="#">7</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/disney-balloon.jpg"
+            alt="a balloon fairground ride"
+          />
+          <figcaption>
+            <a href="#">8</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/bristol-harbor.jpg"
+            alt="sunrise over a harbor"
+          />
+          <figcaption>
+            <a href="#">9</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/bristol-balloons2.jpg"
+            alt="three hot air balloons in a blue sky"
+          />
+          <figcaption>
+            <a href="#">10</a>
+          </figcaption>
+        </figure>
+        <figure>
+          <img
+            src="https://assets.codepen.io/12005/toronto.jpg"
+            alt="the Toronto light up sign at night"
+          />
+          <figcaption>
+            <a href="#">11</a>
+          </figcaption>
+        </figure>
+      </div>
     </div>
   );
 };
