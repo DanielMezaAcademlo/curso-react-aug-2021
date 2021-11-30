@@ -1,44 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import "./App.css";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+
+//Firebase
+import { firebase } from "./firebase/firebase.config";
 
 //Views
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Home from "./Pages/Home/Home";
 //Layout
-import MainLayout from "./Layouts/MainLayout";
 import Header from "./Components/Custom/Header/Header";
 import Profile from "./Pages/Profile/Profile";
 import Videos from "./Pages/Videos/Videos";
 import Images from "./Pages/Images/Images";
 
+//Actions
+import { handleFillUserInfoAction } from "./redux/actions/login.action";
+
 function App() {
-  //JSX
+  //State
+  const [isInSession, setIsInSession] = useState(false);
+
+  //Redux Hooks
+  const dispatch = useDispatch();
+
+  firebase.auth().onAuthStateChanged(user => {
+    if (user?.uid) {
+      dispatch(
+        handleFillUserInfoAction({
+          displayName: user.displayName,
+          email: user.email,
+          uid: user.uid
+        })
+      );
+      setIsInSession(true);
+    } else {
+      setIsInSession(false);
+    }
+  });
 
   return (
     <BrowserRouter>
       <Switch>
         {/* <MainLayout> */}
-        <Route path="/" exact>
-          <>
-            <Header />
-            <Home />
-          </>
-        </Route>
+        <Route
+          exact
+          path="/"
+          render={() =>
+            isInSession ? (
+              <>
+                <Header />
+                <Home />
+              </>
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
 
-        <Route path="/login" exact>
-          <>
-            <Login />
-          </>
-        </Route>
+        <Route
+          exact
+          path="/login"
+          render={() =>
+            !isInSession ? (
+              <>
+                <Login />
+              </>
+            ) : (
+              <Redirect to="/" />
+            )
+          }
+        />
 
-        <Route path="/signup" exact>
-          <>
-            <Register />
-          </>
-        </Route>
+        <Route
+          exact
+          path="/signup"
+          render={() =>
+            !isInSession ? (
+              <>
+                <Register />
+              </>
+            ) : (
+              <Redirect to="/" />
+            )
+          }
+        />
 
         <Route path="/images" exact>
           <>

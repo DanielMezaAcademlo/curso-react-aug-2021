@@ -13,7 +13,7 @@ const Header = () => {
       className={`h-16 bg-red flex justify-between items-center mi-clase`}
     >
       <h2 className="ml-10 text-2xl tablet:text-3xl	text-white">
-        <Link to="/store">Redux API</Link>
+        <Link to="/">Redux API</Link>
       </h2>
 
       <ul className="w-1/4 flex justify-between items-center px-5 text-white font-semibold">
@@ -25,6 +25,9 @@ const Header = () => {
         </li>
         <li>
           <Link to="/profile">Perfil</Link>
+        </li>
+        <li>
+          <button>Logout</button>
         </li>
       </ul>
     </header>

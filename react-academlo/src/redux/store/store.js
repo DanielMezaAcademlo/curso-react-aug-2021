@@ -7,6 +7,7 @@ import { darkmodeReducer } from "../reducers/darkmode.reducer";
 import { shopReducer } from "../reducers/shop.reducer";
 import { loginReducer } from "../reducers/login.reducer";
 import { errorReducer } from "../reducers/error.reducer";
+import { profileReducer } from "../reducers/profile.reducer";
 
 //2. CombineReducers
 
@@ -17,7 +18,8 @@ const reducers = combineReducers({
   darkmode: darkmodeReducer,
   shop: shopReducer,
   session: loginReducer,
-  error: errorReducer
+  error: errorReducer,
+  profile: profileReducer
 });
 
 //3. Ceación y exportación del store

@@ -57,7 +57,7 @@ export const handleRegisterAction = ({ userName, email, password }) => {
   };
 };
 
-const handleFillUserInfoAction = userInfo => {
+export const handleFillUserInfoAction = userInfo => {
   return {
     type: loginTypes.LOGIN,
     payload: userInfo
