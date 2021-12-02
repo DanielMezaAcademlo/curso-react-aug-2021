@@ -27,12 +27,11 @@ const Images = () => {
   };
   return (
     <div className="w-3/4 m-auto">
-      <h2 className="mt-3 font-bold text-2xl text-center">Imágenes</h2>
       <SearchForm
         handleKeyword={handleKeyword}
         handleSearchData={handleSearchData}
       />
-      <ImageContainer data={data} />
+      <ImageContainer data={data?.photos} title="Imágenes" />
     </div>
   );
 };

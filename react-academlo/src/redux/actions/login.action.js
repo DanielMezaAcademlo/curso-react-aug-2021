@@ -24,7 +24,6 @@ export const handleLoginWithEmailAction = ({ emailForm, password }) => {
         .auth()
         .signInWithEmailAndPassword(emailForm, password);
       const { displayName, email, uid } = user;
-
       dispatch(handleFillUserInfoAction({ displayName, email, uid }));
     } catch (error) {
       console.log(error);
@@ -54,6 +53,17 @@ export const handleRegisterAction = ({ userName, email, password }) => {
       console.log(error.code);
       dispatch(handleAddErrorAction(error.message));
     }
+  };
+};
+
+export const handleLogoutAction = () => async dispatch => {
+  await firebase.auth().signOut();
+  dispatch(handleFillLogoutAction());
+};
+
+const handleFillLogoutAction = () => {
+  return {
+    type: loginTypes.LOGOUT
   };
 };
 

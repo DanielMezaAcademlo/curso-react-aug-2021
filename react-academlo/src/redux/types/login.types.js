@@ -1,3 +1,4 @@
 export const loginTypes = {
-  LOGIN: "LOGIN"
+  LOGIN: "LOGIN",
+  LOGOUT: "LOGOUT"
 };

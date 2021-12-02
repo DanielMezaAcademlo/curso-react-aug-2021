@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { AiOutlineHeart } from "react-icons/ai";
 
@@ -15,20 +16,10 @@ const SinglePhoto = ({ data, isFavData }) => {
     dispatch(handleAddFavDataAction(data, isFavData));
   };
 
-  // <AiOutlineHeart
-  //         className="text-black cursor-pointer z-50"
-  //         onClick={handleAddFavData}
-  //       />
-
   return (
     <figure>
       <img src={data?.src.large} alt="A windmill" />
       <figcaption className="flex items-center">
-        {/* <FaHeart
-          className={`text-${isFavData ? "red" : "black"} cursor-pointer z-50`}
-          onClick={handleAddFavData}
-        /> */}
-
         <AiOutlineHeart
           className="text-black cursor-pointer z-50"
           className={`text-${isFavData ? "red" : "black"} cursor-pointer z-50`}
@@ -41,6 +32,10 @@ const SinglePhoto = ({ data, isFavData }) => {
       </figcaption>
     </figure>
   );
+};
+
+SinglePhoto.propTypes = {
+  isFavData: PropTypes.bool.isRequired
 };
 
 export default SinglePhoto;

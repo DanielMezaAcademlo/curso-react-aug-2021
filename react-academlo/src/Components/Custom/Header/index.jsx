@@ -1,6 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+//Actions
+import { handleLogoutAction } from "../../../redux/actions/login.action";
+
 //Styles
 import "./Header.styles.css";
 
@@ -27,7 +31,7 @@ const Header = () => {
           <Link to="/profile">Perfil</Link>
         </li>
         <li>
-          <button>Logout</button>
+          <button onClick={() => dispatch(handleLogoutAction())}>Logout</button>
         </li>
       </ul>
     </header>

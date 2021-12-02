@@ -8,11 +8,11 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { firebase } from "./firebase/firebase.config";
 
 //Views
-import Login from "./Pages/Login/Login";
+import Login from "./Pages/Login";
 import Register from "./Pages/Register/Register";
 import Home from "./Pages/Home/Home";
 //Layout
-import Header from "./Components/Custom/Header/Header";
+import Header from "./Components/Custom/Header";
 import Profile from "./Pages/Profile/Profile";
 import Videos from "./Pages/Videos/Videos";
 import Images from "./Pages/Images/Images";

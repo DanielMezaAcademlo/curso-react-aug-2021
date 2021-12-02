@@ -38,7 +38,7 @@ const Home = () => {
 
   return (
     <div className="">
-      <ImageContainer data={data} />
+      <ImageContainer data={data?.photos} title="Home" />
     </div>
   );
 };
