@@ -11,6 +11,7 @@ import { firebase } from "./firebase/firebase.config";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register/Register";
 import Home from "./Pages/Home/Home";
+
 //Layout
 import Header from "./Components/Custom/Header";
 import Profile from "./Pages/Profile/Profile";

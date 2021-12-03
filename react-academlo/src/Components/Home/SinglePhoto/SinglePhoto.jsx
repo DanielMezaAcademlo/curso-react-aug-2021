@@ -7,8 +7,6 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { handleAddFavDataAction } from "../../../redux/actions/profile.action";
 
 const SinglePhoto = ({ data, isFavData }) => {
-  console.log(isFavData);
-
   //Redux hook
   const dispatch = useDispatch();
 
